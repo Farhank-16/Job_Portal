@@ -1,8 +1,3 @@
--- ============================================
--- JOB MARKETPLACE PLATFORM - DATABASE SCHEMA
--- Production Ready MySQL Schema
--- ============================================
-
 -- Create Database
 CREATE DATABASE IF NOT EXISTS job_platform
 CHARACTER SET utf8mb4
@@ -10,10 +5,10 @@ COLLATE utf8mb4_unicode_ci;
 
 USE job_platform;
 
--- ============================================
+
 -- TABLE 1: users
 -- Central user table for all roles
--- ============================================
+
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NULL,
@@ -64,10 +59,10 @@ CREATE TABLE users (
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 2: skills
 -- Master skills table
--- ============================================
+
 CREATE TABLE skills (
     id INT PRIMARY KEY AUTO_INCREMENT,
     skill_name VARCHAR(100) NOT NULL UNIQUE,
@@ -82,10 +77,10 @@ CREATE TABLE skills (
     INDEX idx_active (is_active)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 3: user_skills
 -- Junction table for user-skill relationship
--- ============================================
+
 CREATE TABLE user_skills (
     user_id INT NOT NULL,
     skill_id INT NOT NULL,
@@ -109,10 +104,10 @@ CREATE TABLE user_skills (
     INDEX idx_verified (is_verified)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 4: jobs
 -- Job postings by employers
--- ============================================
+
 CREATE TABLE jobs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     employer_id INT NOT NULL,
@@ -162,10 +157,10 @@ CREATE TABLE jobs (
     FULLTEXT INDEX idx_search (title, description, location)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 5: job_skills
 -- Skills required for jobs
--- ============================================
+
 CREATE TABLE job_skills (
     job_id INT NOT NULL,
     skill_id INT NOT NULL,
@@ -186,10 +181,10 @@ CREATE TABLE job_skills (
     INDEX idx_skill_id (skill_id)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 6: otp_logs
 -- OTP verification logs
--- ============================================
+
 CREATE TABLE otp_logs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     mobile VARCHAR(15) NOT NULL,
@@ -210,10 +205,10 @@ CREATE TABLE otp_logs (
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 7: subscriptions
 -- User subscription records
--- ============================================
+
 CREATE TABLE subscriptions (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -246,10 +241,10 @@ CREATE TABLE subscriptions (
     INDEX idx_plan_name (plan_name)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 8: payments
 -- Payment transaction records
--- ============================================
+
 CREATE TABLE payments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -293,10 +288,10 @@ CREATE TABLE payments (
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 9: skill_exams
 -- Skill verification exam questions
--- ============================================
+
 CREATE TABLE skill_exams (
     id INT PRIMARY KEY AUTO_INCREMENT,
     skill_id INT NOT NULL,
@@ -321,10 +316,10 @@ CREATE TABLE skill_exams (
     INDEX idx_active (is_active)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 10: exam_attempts
 -- User exam attempt records
--- ============================================
+
 CREATE TABLE exam_attempts (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -359,10 +354,10 @@ CREATE TABLE exam_attempts (
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 11: ai_matches
 -- AI-based job matching results
--- ============================================
+
 CREATE TABLE ai_matches (
     id INT PRIMARY KEY AUTO_INCREMENT,
     job_id INT NOT NULL,
@@ -406,10 +401,9 @@ CREATE TABLE ai_matches (
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 12: job_applications
 -- Job application tracking
--- ============================================
 CREATE TABLE job_applications (
     id INT PRIMARY KEY AUTO_INCREMENT,
     job_id INT NOT NULL,
@@ -445,10 +439,10 @@ CREATE TABLE job_applications (
     INDEX idx_applied_at (applied_at)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 13: notifications
 -- User notifications
--- ============================================
+
 CREATE TABLE notifications (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -470,10 +464,10 @@ CREATE TABLE notifications (
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB;
 
--- ============================================
+
 -- TABLE 14: activity_logs
 -- User activity tracking for analytics
--- ============================================
+
 CREATE TABLE activity_logs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NULL,
@@ -495,6 +489,7 @@ CREATE TABLE activity_logs (
     INDEX idx_entity (entity_type, entity_id),
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB;
+
 
 -- ============================================
 -- INSERT DEFAULT DATA
